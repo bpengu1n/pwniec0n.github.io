@@ -11,7 +11,7 @@ var message = "V2FrZSB1cCwgcHduaWVzLi4uClRoZSB3b3JsZCBoYXMgeW91CmZvbGxvdyB0aGUgY
 message = message.split("");
 
 var font_size = 15;
-var columns = c.width/font_size; //number of columns for the rain
+var columns = Math.floor(c.width/font_size); //number of columns for the rain
 //an array of drops - one per column
 var drops = [];
 //x below is the x coordinate
@@ -24,7 +24,7 @@ function draw()
 {
 	//Black BG for the canvas
 	//translucent BG to show trail
-	ctx.fillStyle = "rgba(104, 78, 255, .1)";
+	ctx.fillStyle = "rgba(104, 78, 255, .3)";
 	ctx.fillRect(0, 0, c.width, c.height);
 	
 	ctx.fillStyle = "rgba(255,123,245,.7)"; //green text
@@ -32,7 +32,7 @@ function draw()
 	//looping over drops
 	for(var i = 0; i < drops.length; i++)
 	{
-		//a random chinese character to print
+		//a random character to print
 		var text = message[Math.floor(Math.random()*message.length)];
 		//x = i*font_size, y = value of drops[i]*font_size
 		ctx.fillText(text, i*font_size, drops[i]*font_size);

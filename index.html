@@ -10,19 +10,18 @@
 <body>
     
     <canvas id="rainbow-matrix"></canvas>
+    <div id="gradient"></div>
 
-	<div id="body-container">
     <img id="logo" src="svg/bluepwnie.svg" alt="">
     
     <div id="password-container">
-        <input id="password-input" type="password" />
-        <span id="checkmark" class="checkmark">&#10003;</span>
+        <input id="password-input" type="password" placeholder="enter password"/>
+        <button id="submit-button" disabled>Submit</button>
     </div>
     
-    <div id="render-container" class="above">
+    <div id="render-container" class="hidden">
         <div id="contents">
         </div>
-    </div>
     </div>
 
     <script src="js/script.js"></script>

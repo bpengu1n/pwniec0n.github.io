@@ -20,7 +20,7 @@ async function encrypt(content, password) {
   };
 }
 
-let decrypt = async function(encryptedData, password) {
+let decrypt = async function (encryptedData, password) {
   const salt = base64ToBytes(encryptedData.salt);
 
   const key = await getKey(password, salt);
@@ -74,43 +74,68 @@ function base64ToBytes(base64) {
   return Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
 }
 
-// other helpers
-async function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+function passwordHandler(event) {
+
+  if (event.key === 'Enter') {
+
+    // var pt = await decrypt(ct, document.getElementById("password-input").value);
+  }
 }
 
-function passwordHandler(event) {
-	
-	if (event.key === "Enter") {
-        
-        // var pt = await decrypt(ct, document.getElementById("password-input").value);
-    }
+// Encrypted Content
+const ct_serial = "eyJzYWx0IjoiYzVzQUlYanoyWG03Ym9vTWRSbkZFQT09IiwiaXYiOiJpWXAzMWkwL3ZyMlR2SG1EIiwiY2lwaGVyIjoiQzBBYi9EVm1UNzdMNm5PMW9NeER3dVFtcTBDOXo3RkRXeXg1WmF4NnRycytZMXVZWTk1T0hmQ3QveCtIbCtlc0tPdmQvT1h1SzVsWFVSbzBRRlpvbVVMNi9FemR2dUVnS2VZN3E5QjZ0Q3dkd2FlcGswL0FYOWR0OUdTQ00rZEJycm94UmI0UTJEcUkyc0V4U3A3RmdBSGRLcVFUaE04Y3FLWDBkVUFiZ0xodjZmRkk0ZEpmK0VwQ2lZdmhmU3ZZNkRCSTVhN1BIbksyTUtFaDVDdENuSThNRkphVDNvY2xvTUNNckgwV0w4emZwdThjbmFrekFIREF6SGw2anFLSXRvcGloZndpazFpMEt3dmpvelBjcmgwMXMzazcvNTFUNVJSejQvWVV0em5CNGpoeHl6c1l1TTFVeElpNXdXNFhYTE14RXdNWFdydnJFRTBaYnpwYWphdTFQYUd4SEl0N2gzZit0b1d1MjZQVTBxYzBuZ1NnbDJNQWRXd2VSbGMxK2s2YVZGY29WcTgySFNTUXU2K3Nob0J2K3pHdEI4aitZQXlHbkkrSFFvd2R5b0RIclk2QmRxc3VuSVNpZ0xtYkdTU2tjRDAyYUN1Q0pXL3Y5WXUrK1FTalRoQ1haMWlxaDJtNmtDZkxXUWwvMWwraEd6MzVmVDg0WmJsSkRac3dkRE1qL2ZqcU9jSmpsd0pPRzV1Y05BVWNaaGw2YStPakpaRm1MV2NYMGdlbEwySjdLeWw0bHN1UHloMytvYkxBN21kTTdSWmhDZS8ySm44WEFKM3B3Z0k4ZzJNRUNsMkxrVEZGRW5ML2xkN3hMMGFNejY1UkxseXc2R2p6NFZaZmZZVDcrRWFNUjVSMG8zeDROR1ZRMWtBc1czbnpHanZnMGk0b3ZVTGVIWDdlMFpWU1gzVFpGWGIrVjNWWEZ1bXJQVnRPc2RqTE53RmZZdkw2YTRmUVZGa1k4ZWN1RlI3dUppUm02b1d0TTJuM004d3lkS2wrOU9DOTVsbkNNM2w4S0NaZE5YSFc2Ujh2T1h2bm1yNFMyOUlQTC9vbTlVL2kifQ==";
+
+async function revealContent(inputPassword) {
+  try {
+    const ct = JSON.parse(atob(ct_serial));
+    const decryptedText = await decrypt(ct, inputPassword); // Await the async function
+    document.getElementById('contents').innerHTML = decryptedText;
+    console.log(decryptedText);
+    document.getElementById('render-container').classList = '';
+
+    document.getElementById('password-container').classList += ' hidden';
+    document.getElementById('logo').classList += 'small';
+
+    // set the password cookie
+    document.cookie = "password=" + inputPassword + ';samesite=strict';
+
+  } catch (error) {
+    console.error('Password incorrect');
+    alert('Password incorrect');
+  }
 }
 
 // Set up the event handler
 document.addEventListener('DOMContentLoaded', (event) => {
-	var ct_serial = "eyJzYWx0IjoiYzVzQUlYanoyWG03Ym9vTWRSbkZFQT09IiwiaXYiOiJpWXAzMWkwL3ZyMlR2SG1EIiwiY2lwaGVyIjoiQzBBYi9EVm1UNzdMNm5PMW9NeER3dVFtcTBDOXo3RkRXeXg1WmF4NnRycytZMXVZWTk1T0hmQ3QveCtIbCtlc0tPdmQvT1h1SzVsWFVSbzBRRlpvbVVMNi9FemR2dUVnS2VZN3E5QjZ0Q3dkd2FlcGswL0FYOWR0OUdTQ00rZEJycm94UmI0UTJEcUkyc0V4U3A3RmdBSGRLcVFUaE04Y3FLWDBkVUFiZ0xodjZmRkk0ZEpmK0VwQ2lZdmhmU3ZZNkRCSTVhN1BIbksyTUtFaDVDdENuSThNRkphVDNvY2xvTUNNckgwV0w4emZwdThjbmFrekFIREF6SGw2anFLSXRvcGloZndpazFpMEt3dmpvelBjcmgwMXMzazcvNTFUNVJSejQvWVV0em5CNGpoeHl6c1l1TTFVeElpNXdXNFhYTE14RXdNWFdydnJFRTBaYnpwYWphdTFQYUd4SEl0N2gzZit0b1d1MjZQVTBxYzBuZ1NnbDJNQWRXd2VSbGMxK2s2YVZGY29WcTgySFNTUXU2K3Nob0J2K3pHdEI4aitZQXlHbkkrSFFvd2R5b0RIclk2QmRxc3VuSVNpZ0xtYkdTU2tjRDAyYUN1Q0pXL3Y5WXUrK1FTalRoQ1haMWlxaDJtNmtDZkxXUWwvMWwraEd6MzVmVDg0WmJsSkRac3dkRE1qL2ZqcU9jSmpsd0pPRzV1Y05BVWNaaGw2YStPakpaRm1MV2NYMGdlbEwySjdLeWw0bHN1UHloMytvYkxBN21kTTdSWmhDZS8ySm44WEFKM3B3Z0k4ZzJNRUNsMkxrVEZGRW5ML2xkN3hMMGFNejY1UkxseXc2R2p6NFZaZmZZVDcrRWFNUjVSMG8zeDROR1ZRMWtBc1czbnpHanZnMGk0b3ZVTGVIWDdlMFpWU1gzVFpGWGIrVjNWWEZ1bXJQVnRPc2RqTE53RmZZdkw2YTRmUVZGa1k4ZWN1RlI3dUppUm02b1d0TTJuM004d3lkS2wrOU9DOTVsbkNNM2w4S0NaZE5YSFc2Ujh2T1h2bm1yNFMyOUlQTC9vbTlVL2kifQ==";
-    const inputField = document.getElementById('password-input');
+  const inputField = document.getElementById('password-input');
+  const submitButton = document.getElementById('submit-button')
 
-    inputField.addEventListener('keydown', async function(event) {
-    	document.getElementById('password-input').classList = '';
-        if (event.key === 'Enter') {
-            const inputPassword = inputField.value;
-            try {
-            	const ct = JSON.parse(atob(ct_serial));
-                const decryptedText = await decrypt(ct, inputPassword); // Await the async function
-                document.getElementById('contents').innerHTML = decryptedText;
-                console.log(decryptedText); 
-                document.getElementById('password-input').classList.remove('error');
-                document.getElementById('password-input').classList.add('success');
-                await sleep(1000);
-                document.getElementById('password-container').classList.add('hidden');
-                document.getElementById('render-container').classList.remove('above');
-//                 document.getElementById('password-input').classList += ' hidden';
-            } catch (error) {
-            	document.getElementById('password-input').classList.add('error');
-                console.error('Password incorrect');
-            }
-        }
+  // check if the password is stored in cookies
+  if (document.cookie != null) {
+    let cookies = document.cookie.split(';');
+    cookies.forEach(element => {
+      curCookie = element.split('=');
+      if (curCookie[0] === 'password') {
+        revealContent(curCookie[1]);
+      }
     });
+  }
+
+  // submit button event listenr
+  submitButton.addEventListener('click', async function() {
+    const inputPassword = inputField.value;
+    await revealContent(inputPassword);
+  });
+
+  // Input field event listener
+  inputField.addEventListener('keydown', async function (event) {
+    if (event.key === 'Enter') {
+      const inputPassword = inputField.value;
+      await revealContent(inputPassword);
+    }
+  });
+
+  inputField.addEventListener('input', () => {
+    submitButton.disabled = !(inputField.value.length > 3);
+  });
 });

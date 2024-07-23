@@ -1,176 +1,129 @@
-html, body {
-    margin: 0;
-    padding: 5% 0 0;
-    font-family: Arial, Helvetica, sans-serif;
-    color:#fff;
-    font-size: 12pt;
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+html,
+body {
+  margin: 0;
+  padding: 2% 0 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+  font-size: 12pt;
 }
 
 body {
-    background-color:#684eff;
-    text-align: center;
+  background-color: #684eff;
+  text-align: center;
 }
 
 #rainbow-matrix {
-    display: block;
-    position: absolute;
-    top:0;
-    left:0;
-    z-index:-1;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -2;
+}
+
+#gradient {
+  position: fixed;
+  background-image: radial-gradient(circle, #ff7bf588 0%, #ff7bf500 70%);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  z-index: -1;
 }
 
 #logo {
-    width: 100%;
-    max-height: 30rem;
-    max-width: 80%;
-    height: auto;
-    padding-bottom: 2rem;
+  width: 100%;
+  max-height: 30rem;
+  max-width: 80%;
+  height: auto;
+  padding-bottom: 2rem;
+  transition: max-height 1s ease;
 }
 
-.progress {
-    background: rgba(255,255,255,0.1);
-    justify-content: flex-start;
-    border-radius: 100px;
-    align-items: center;
-    position: relative;
-    padding: 0 5px;
-    display: flex;
-    height: 2rem;
-    width: 80%;
-    margin:0 auto;
-  }
-  
-  .progress-value {
-    animation: load 5s ease forwards;
-    box-shadow: 0 10px 30px -10px #fcc4fc;
-    border-radius: 100px;
-    background: linear-gradient(to bottom right, #d441d4, #ff6dff, #fcd1df);
-    height: 1.7rem;
-    width: 0;
-    line-height: 1.7rem;
-    overflow: hidden;
-  }
+#logo.small {
+  max-height: 10rem;
+}
 
-  .progress-value span {
-      font-weight: 900;
-      opacity: 0;
-      animation: pulse 6s ease;
-      animation-iteration-count: infinite;
-      animation-delay: 3s;
-  }
-  
-  @keyframes load {
-    0% { width: 0; }
-    100% { width: 30%; }
-  }
+.hidden {
+  display: none !important;
+}
 
-  @keyframes pulse {
-      0% { opacity: 0; }
-      50% { opacity: 1;}
-      100% { opacity: 0;}
-  }
-  
-  .hidden {
-  	display: none !important;
-  }
-  
- div#body-container {
- 	text-align: center;
- }
-  
-#password-container {
-    position: relative;
-    display: inline-block;
-    margin-left:auto;
-    margin-right: auto;
-    text-align: center;
-    transition: top 1s ease-in-out;
+div#password-container {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 #password-container input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    transition: all 0.3s ease;
+  max-width: 80%;
+  height: 30px;
+  background: none;
+  border:none; 
+  border-bottom: 2px solid white;
+  outline: none;
+  padding: .5rem;
+  opacity: 70%;
+  color: white;
+  font-size: 18px;
 }
 
-#password-container input.error {
-    animation: shake 0.3s ease-in-out;
-    border-color: red;
-    box-shadow: 0 0 5px red;
+#password-container button {
+  border:none;
+  border-radius: 2rem;
+  color:white;
+  font-size: 18px;
+  margin-left:.3rem;
+  padding: .5rem 2rem;
+  font-weight: bold;
+  background: linear-gradient(to bottom right, #d441d4, #ff6dff, #fcd1df);
+  cursor: pointer;
 }
 
-#password-container input.success {
-    border-color: green;
-    box-shadow: 0 0 5px green;
+#password-container button:disabled {
+  opacity: .5;
+  cursor: default;
 }
 
-#password-container input.success + .checkmark {
-    display: inline;
+#render-container {
+  display: block;
+  position: relative;
+  top: -250px;
+  z-index: -1;
+  height: 800px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background-color: whitesmoke;
+  border-radius: 15px;
+  color: indigo;
+  padding-top: -50px;
 }
 
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-10px); }
-    40%, 80% { transform: translateX(10px); }
+#render-container #logo {
+  display: block;
+  position: relative;
+  top: -180px;
+  left: 30%;
 }
 
-.checkmark {
-    display: none;
-    color: green;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.5em;
-}
-  
-  #render-container {
-    display: block; 
-    position: relative; 
-    top: -250px; 
-    z-index: -1;
-    height: 600px;
-    width: 700px; 
-    margin-left: auto; 
-    margin-right: auto; 
-    text-align: center; 
-    background-color: whitesmoke; 
-    border-radius: 15px; 
-    color: indigo; 
-    transition: top 1s ease-in-out;
-  }
-  
-  div.above {
-  	top: -1750px !important;
-  }
-  
-  #render-container #logo {
-  	display: block; 
-  	position: relative; 
-  	top: -180px; 
-  	left: 30%;
-  }
-  
-  #contents {
-  	display: block; position: relative; top: 250px;
-  	
-  }
+#contents {
+  display: block;
+  position: relative;
+  top: 250px;
 
-  #contents h1 {
-    font-size: 3em; 
-    text-shadow: purple 1px 0 6px;
-  }
-  #contents h2 {
-  	margin-bottom: 2px;
-  }
-  #contents h3 {
-  	margin-top: 0px; 
-  	margin-bottom: 0px;
-  }
+}
+
+#contents h1 {
+  font-size: 3em;
+  text-shadow: purple 1px 0 6px;
+}
+
+#contents h2 {
+  margin-bottom: 2px;
+}
+
+#contents h3 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
