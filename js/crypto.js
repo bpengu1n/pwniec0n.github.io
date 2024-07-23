@@ -74,12 +74,9 @@ function base64ToBytes(base64) {
   return Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
 }
 
-function passwordHandler(event) {
-
-  if (event.key === 'Enter') {
-
-    // var pt = await decrypt(ct, document.getElementById("password-input").value);
-  }
+// other helpers
+async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 // Encrypted Content
@@ -91,24 +88,28 @@ async function revealContent(inputPassword) {
     const decryptedText = await decrypt(ct, inputPassword); // Await the async function
     document.getElementById('contents').innerHTML = decryptedText;
     console.log(decryptedText);
-    document.getElementById('render-container').classList = '';
+    document.getElementById('password-input').classList.remove('error');
+    document.getElementById('password-input').classList.add('success');
+    await sleep(1000);
+    document.getElementById('render-container').classList.remove('above');
 
-    document.getElementById('password-container').classList += ' hidden';
-    document.getElementById('logo').classList += 'small';
+    document.getElementById('password-container').classList.add('hidden');
+    document.getElementById('logo').classList.add('small');
 
     // set the password cookie
     document.cookie = "password=" + inputPassword + ';samesite=strict';
 
   } catch (error) {
+    document.getElementById('password-input').classList.add('error');
     console.error('Password incorrect');
-    alert('Password incorrect');
+    //alert('Password incorrect');
   }
 }
 
 // Set up the event handler
 document.addEventListener('DOMContentLoaded', (event) => {
   const inputField = document.getElementById('password-input');
-  const submitButton = document.getElementById('submit-button')
+  /*const submitButton = document.getElementById('submit-button')*/
 
   // check if the password is stored in cookies
   if (document.cookie != null) {
@@ -122,10 +123,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
   }
 
   // submit button event listenr
-  submitButton.addEventListener('click', async function() {
+  /*submitButton.addEventListener('click', async function() {
     const inputPassword = inputField.value;
     await revealContent(inputPassword);
-  });
+  });*/
 
   // Input field event listener
   inputField.addEventListener('keydown', async function (event) {

@@ -58,13 +58,35 @@ div#password-container {
   max-width: 80%;
   height: 30px;
   background: none;
-  border:none; 
-  border-bottom: 2px solid white;
-  outline: none;
+  /*border:none;*/
+  /*border-bottom: 2px solid white;*/
+  border-radius: 5px;
+  border: 1px solid white;
   padding: .5rem;
   opacity: 70%;
   color: white;
   font-size: 18px;
+}
+
+#password-container input.error {
+    animation: shake 0.3s ease-in-out;
+    border-color: red;
+    box-shadow: 0 0 5px red;
+}
+
+#password-container input.success {
+    border-color: green;
+    box-shadow: 0 0 5px green;
+}
+
+#password-container input.success + .checkmark {
+    display: inline;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-10px); }
+    40%, 80% { transform: translateX(10px); }
 }
 
 #password-container button {
@@ -98,6 +120,7 @@ div#password-container {
   border-radius: 15px;
   color: indigo;
   padding-top: -50px;
+  transition: top 1s ease-in-out;
 }
 
 #render-container #logo {
@@ -126,4 +149,19 @@ div#password-container {
 #contents h3 {
   margin-top: 0px;
   margin-bottom: 0px;
+}
+
+.checkmark {
+    display: none;
+    color: green;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5em;
+}
+
+
+div.above {
+  top: -1750px !important;
 }
