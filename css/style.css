@@ -38,6 +38,7 @@ body {
   height: auto;
   padding-bottom: 2rem;
   transition: max-height 1s ease;
+  fill-opacity: 0;
 }
 
 #logo.small {
