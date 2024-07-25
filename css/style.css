@@ -32,6 +32,8 @@ body {
 }
 
 #logo {
+  position:relative;
+  z-index: 100;
   width: 100%;
   max-height: 30rem;
   max-width: 80%;
