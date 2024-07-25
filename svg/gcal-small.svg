@@ -8,15 +8,6 @@
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
      id="defs7" />
-  <rect
-     fill="#ffffff"
-     height="20"
-     rx="0.58593756%"
-     width="20"
-     id="rect1"
-     x="0"
-     y="0"
-     style="stroke-width:0.0390625" />
   <path
      d="M 3.90625,13.28125 H 6.7968747 V 6.7968747 H 13.28125 V 3.90625 H 5.3515624 q -1.4453124,0 -1.4453124,1.3671876"
      fill="#4285f4"
