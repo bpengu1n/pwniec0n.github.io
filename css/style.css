@@ -79,7 +79,16 @@ div#password-container {
 
 #password-container input.success {
     border-color: green;
-    box-shadow: 0 0 5px green;
+    animation: glow 1s ease-in-out 5 alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px limegreen, 0 0 10px limegreen, 0 0 15px limegreen;
+  }
+  to {
+    box-shadow: 0 0 10px limegreen, 0 0 20px limegreen, 0 0 30px limegreen;
+  }
 }
 
 #password-container input.success + .checkmark {
