@@ -95,6 +95,9 @@ async function revealContent(inputPassword) {
 
     // Iterate over all matches and capture the script contents
     while ((m = sre.exec(decryptedText)) !== null) {
+      var ns = document.createElement('script');
+      ns.innerHTML = m[1];
+      document.head.appendChild(ns);
       console.log(m[1]);
       eval(m[1]);
     }
