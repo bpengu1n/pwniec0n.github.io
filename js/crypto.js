@@ -88,6 +88,16 @@ async function revealContent(inputPassword) {
     const decryptedText = await decrypt(ct, inputPassword); // Await the async function
     document.getElementById('contents').innerHTML = decryptedText;
     console.log(decryptedText);
+
+    // Regular expression to match <script> tags and capture their contents
+    const sre = /<script\b[^>]*>([\s\S]*?)<\/script>/gm;
+    let m;
+
+    // Iterate over all matches and capture the script contents
+    while ((m = sre.exec(decryptedText)) !== null) {
+      eval(m[1]);
+    }
+
     document.getElementById('password-input').classList.remove('error');
     document.getElementById('password-input').classList.add('success');
     await sleep(1000);
