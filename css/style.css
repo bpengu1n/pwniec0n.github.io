@@ -111,7 +111,6 @@ div#password-container {
   display: block;
   position: relative;
   top: -250px;
-  z-index: -1;
   height: 800px;
   width: 80%;
   margin-left: auto;
